@@ -2,9 +2,10 @@ import {useUserStore} from "~/stores/user";
 
 export const useAuth = () => {
   const store = useUserStore()
+  const config = useRuntimeConfig()
 
   const login = async (credentials: {username: string, password: string}) => {
-    const { data, error } = await useFetch('http://localhost:8000/api/login', {
+    const { data, error } = await useFetch(`${config.public.apiBase || 'http://localhost:8000'}/api/login`, {
       method: 'POST',
       body: credentials
     })
