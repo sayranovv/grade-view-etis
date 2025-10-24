@@ -28,13 +28,18 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
   loading.value = true
   const user = JSON.parse(sessionStorage.getItem('user')!)
 
-  await analysis.analyze({
-    username: user.username,
-    password: user.password,
-    term: event.data.selectTerm === 'Все' ? '' : event.data.selectTerm
-  })
+  try {
+    await analysis.analyze({
+      username: user.username,
+      password: user.password,
+      term: event.data.selectTerm === 'Все' ? '' : event.data.selectTerm
+    })
+  } catch (e) {
+    console.log(e)
+  } finally {
+    loading.value = false
+  }
 
-  loading.value = false
   closeModal()
 }
 
