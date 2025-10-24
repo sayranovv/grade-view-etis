@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { useWindowSize } from '@vueuse/core'
+
 const props = defineProps<{
   data: {
     subject: string
@@ -13,6 +15,15 @@ const categories = computed(() => ({
   },
 }))
 
+const { width } = useWindowSize()
+
+const chartHeight = computed(() => {
+  if (!props.data?.length) return 300
+  if (width.value < 600) return 90 * props.data.length
+  if (width.value < 1000) return 80 * props.data.length
+  return 50 * props.data.length
+})
+
 const xFormatter = (i: number) => (props.data && props.data[i] ? props.data[i].subject : '')
 const yFormatter = (tick: number) => tick.toString()
 </script>
@@ -21,7 +32,7 @@ const yFormatter = (tick: number) => tick.toString()
   <BarChart
       v-if="data && data.length"
       :data="data"
-      :height="50 * data.length"
+      :height="chartHeight"
       :categories="categories"
       :y-axis="['grade']"
       :y-num-ticks="data.length"
