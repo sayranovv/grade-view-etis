@@ -4,6 +4,7 @@ import { saveAs } from 'file-saver'
 export const useAnalysis = () => {
   const chartsStore = useChartsStore()
   const userStore = useUserStore()
+  const config = useRuntimeConfig()
 
   const analyze = async (params: { username: string; password: string; term: string }) => {
     userStore.setSelectedTerm( params.term )
@@ -11,7 +12,7 @@ export const useAnalysis = () => {
     chartsStore.setLoading(true)
 
     try {
-      const data = await $fetch<AnalysisResponse>('http://localhost:8000/api/analyze', {
+      const data = await $fetch<AnalysisResponse>(`${config.public.apiBase || 'http://localhost:8000'}/api/analyze`, {
         method: 'POST',
         body: params,
       })
@@ -34,7 +35,7 @@ export const useAnalysis = () => {
 
   const downloadFile = async (fileType: string) => {
     try {
-      const response = await $fetch<Blob>(`http://localhost:8000/download/${fileType}`, {
+      const response = await $fetch<Blob>(`${config.public.apiBase || 'http://localhost:8000'}/download/${fileType}`, {
         method: 'GET',
         query: {
           username: userStore.user?.username,
