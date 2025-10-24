@@ -4,7 +4,7 @@ export const useAuth = () => {
   const store = useUserStore()
 
   const login = async (credentials: {username: string, password: string}) => {
-    const { data, error } = await useFetch('https://grade-view-etis.onrender.com/api/login', {
+    const { data, error } = await useFetch('http://localhost:8000/api/login', {
       method: 'POST',
       body: credentials
     })
