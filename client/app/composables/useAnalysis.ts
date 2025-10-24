@@ -11,7 +11,7 @@ export const useAnalysis = () => {
     chartsStore.setLoading(true)
 
     try {
-      const data = await $fetch<AnalysisResponse>('https://grade-view-etis.onrender.com/api/analyze', {
+      const data = await $fetch<AnalysisResponse>('http://localhost:8000/api/analyze', {
         method: 'POST',
         body: params,
       })
@@ -34,7 +34,7 @@ export const useAnalysis = () => {
 
   const downloadFile = async (fileType: string) => {
     try {
-      const response = await $fetch<Blob>(`https://grade-view-etis.onrender.com/download/${fileType}`, {
+      const response = await $fetch<Blob>(`http://localhost:8000/download/${fileType}`, {
         method: 'GET',
         query: {
           username: userStore.user?.username,
