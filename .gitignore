@@ -1,0 +1,6 @@
+.idea
+server/.venv
+server/avg_grades.png
+server/term_dynamics.png
+server/grades.csv
+server/grades.xlsx
