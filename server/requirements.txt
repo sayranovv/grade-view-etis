@@ -1,0 +1,7 @@
+fastapi[standard]
+unicorn
+requests
+beautifulsoup4
+pandas
+matplotlib
+openpyxl
