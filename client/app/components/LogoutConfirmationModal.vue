@@ -22,7 +22,9 @@ const logoutHandler = async () => {
 
 <template>
   <UModal v-model:open="isOpen">
-    <UButton class="cursor-pointer" color="error" label="Выйти" leading-icon="i-lucide-log-out" />
+    <UButton class="cursor-pointer" color="error" leading-icon="i-lucide-log-out">
+      <span class="hidden sm:inline">Выйти</span>
+    </UButton>
 
     <template #content>
       <div class="p-8">
