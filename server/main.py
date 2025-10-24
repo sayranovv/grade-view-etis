@@ -39,7 +39,7 @@ user_data = {}
 
 def get_available_terms(session):
     url = "https://student.psu.ru/pls/stu_cus_et/stu.signs?p_mode=current"
-    response = session.get(url)
+    response = session.get(url, varify=False)
     soup = BeautifulSoup(response.text, 'html.parser')
 
     submenu = soup.find_all("div", class_="submenu")
@@ -71,7 +71,7 @@ def scrape_etis(username, password, term_filter):
         'p_password': password,
         'p_redirect': ''
     }
-    response = session.post(login_url, data=login_data)
+    response = session.post(login_url, data=login_data, varify=False)
 
     if 'Вход' in response.text:
         raise HTTPException(status_code=401, detail="Неверные данные")
@@ -84,7 +84,7 @@ def scrape_etis(username, password, term_filter):
     all_data = []
     for term in terms:
         grades_url = f'https://student.psu.ru/pls/stu_cus_et/stu.signs?p_mode=current&p_term={term}'
-        response = session.get(grades_url)
+        response = session.get(grades_url, varify=False)
         soup = BeautifulSoup(response.text, 'html.parser')
 
         subjects = soup.find_all('h3')
@@ -207,7 +207,7 @@ def login(request: LoginRequest):
         'p_password': request.password,
         'p_redirect': ''
     }
-    response = session.post(login_url, data=login_data)
+    response = session.post(login_url, data=login_data, varify=False)
 
     if 'Вход' in response.text:
         raise HTTPException(status_code=401, detail="Неверные данные")
